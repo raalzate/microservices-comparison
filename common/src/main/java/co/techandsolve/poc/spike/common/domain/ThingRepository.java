@@ -1,17 +1,18 @@
 package co.techandsolve.poc.spike.common.domain;
 
-import java.util.List;
-import java.util.Optional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 
 public interface ThingRepository {
 
-    Optional<Thing> byId(int id);
+    Mono<Thing> byId(int id);
 
-    List<Thing> all();
+    Flux<Thing> all();
 
-    void save(Thing thing);
+    Mono<Void> save(Mono<Thing> thing);
 
-    void update(Thing thing);
+    Mono<Void> update(Mono<Thing> thing);
 
-    void delete(Thing thing);
+    Mono<Void> delete(Mono<Thing> thing);
 }

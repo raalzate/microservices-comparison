@@ -1,5 +1,6 @@
 
 dependencies {
+    compile 'org.springframework:spring-webflux:5.0.0.RC3'
     compile 'com.restfb:restfb:1.14.0'
     compile 'com.netflix.hystrix:hystrix-core:1.4.14'
 }
