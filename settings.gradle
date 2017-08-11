@@ -1,5 +1,3 @@
-rootProject.name = 'Test - Comparativa'
+rootProject.name = 'Test - Spring Boot'
 include 'common'
-include 'dropwizard'
-include 'vertx'
-include 'spring-boot'
+include 'service'

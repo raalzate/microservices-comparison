@@ -1,5 +1,0 @@
-server:
-  applicationContextPath: /app
-  applicationConnectors:
-    - type: http
-      port: 8443

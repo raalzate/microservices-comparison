@@ -22,20 +22,7 @@ subprojects {
     }
 }
 
-
-project(':dropwizard') {
-    dependencies {
-        compile project(':common')
-    }
-}
-
-project(':vertx') {
-    dependencies {
-        compile project(':common')
-    }
-}
-
-project(':spring-boot') {
+project(':service') {
     dependencies {
         compile project(':common')
     }
