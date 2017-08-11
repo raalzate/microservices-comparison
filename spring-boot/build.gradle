@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
+    id 'application'
+}
+mainClassName = 'co.techandsolve.poc.spike.springboot.Main'
+
+dependencies {
+
+    compile('org.springframework.boot:spring-boot-starter-web:1.2.6.RELEASE') {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile 'org.springframework.boot:spring-boot-starter-jetty:1.2.6.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.6.RELEASE'
+    compile 'org.springframework.hateoas:spring-hateoas:0.19.0.RELEASE'
+}

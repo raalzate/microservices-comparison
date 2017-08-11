@@ -1,0 +1,5 @@
+rootProject.name = 'Test - Comparativa'
+include 'common'
+include 'dropwizard'
+include 'vertx'
+include 'spring-boot'

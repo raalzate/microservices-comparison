@@ -1,0 +1,17 @@
+*.iml
+
+.idea
+.vertx
+
+.gradle
+gradle
+common/build
+
+dropwizard/build
+
+vertx/build
+
+springboot/build
+
+build
+
