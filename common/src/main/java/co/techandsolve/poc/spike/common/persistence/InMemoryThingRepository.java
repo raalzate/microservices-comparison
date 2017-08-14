@@ -5,12 +5,12 @@ import co.techandsolve.poc.spike.common.domain.ThingRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.inject.Singleton;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Singleton
+
 public class InMemoryThingRepository implements ThingRepository {
 
     private final AtomicInteger idGenerator = new AtomicInteger(1);

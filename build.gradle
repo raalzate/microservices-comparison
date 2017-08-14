@@ -16,7 +16,6 @@ subprojects {
 
     dependencies {
         compile 'com.javaslang:javaslang:1.2.2'
-        compile 'javax.inject:javax.inject:1'
         testCompile 'org.mockito:mockito-all:1.9.5'
         testCompile 'junit:junit:4.12'
         testCompile 'org.hamcrest:hamcrest-core:1.3'
