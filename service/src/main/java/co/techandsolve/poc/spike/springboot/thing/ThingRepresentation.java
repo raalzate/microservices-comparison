@@ -1,6 +1,6 @@
 package co.techandsolve.poc.spike.springboot.thing;
 
-import co.techandsolve.poc.spike.common.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.Thing;
 import org.springframework.hateoas.ResourceSupport;
 
 public class ThingRepresentation extends ResourceSupport {

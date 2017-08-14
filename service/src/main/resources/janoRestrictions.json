@@ -1,0 +1,10 @@
+[{
+    "app": "appSegura",
+    "url": "/*",
+    "method": "GET,POST,PUT,DELETE",
+    "roles": "*",
+    "event": null,
+    "strategy": null,
+    "order": 1,
+    "requiredValidCartera": "false"
+}]

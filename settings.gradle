@@ -1,3 +1,3 @@
 rootProject.name = 'Test - Spring Boot'
-include 'common'
+include 'core'
 include 'service'

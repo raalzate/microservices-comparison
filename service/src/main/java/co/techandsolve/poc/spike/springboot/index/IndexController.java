@@ -1,6 +1,6 @@
 package co.techandsolve.poc.spike.springboot.index;
 
-import co.techandsolve.poc.spike.common.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.Thing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,8 +1,7 @@
 package co.techandsolve.poc.spike.springboot.thing;
 
-import co.techandsolve.poc.spike.common.domain.Thing;
-import co.techandsolve.poc.spike.common.domain.ThingRepository;
-import org.reactivestreams.Publisher;
+import co.techandsolve.poc.spike.core.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.ThingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;

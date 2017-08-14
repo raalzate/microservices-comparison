@@ -1,0 +1,3 @@
+[
+    { "app": "appSegura", "resource": "/*", "roles": "*" }
+]

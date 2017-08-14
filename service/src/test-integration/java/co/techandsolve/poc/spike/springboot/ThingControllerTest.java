@@ -1,6 +1,6 @@
 package co.techandsolve.poc.spike.springboot;
 
-import co.techandsolve.poc.spike.common.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.Thing;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

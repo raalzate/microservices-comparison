@@ -29,11 +29,9 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web') {
         exclude module: "spring-boot-starter-tomcat"
     }
-    compile ('co.com.proteccion.jano:jano:2.0.0-beta4') {
-        exclude module: "org.slf4j:slf4j-log4j12"
-        exclude module: "org.slf4j:slf4j-simple"
-    }
+
     compile "org.springframework.boot:spring-boot-starter-webflux"
+    compile 'org.apache.shiro:shiro-spring-boot-starter:1.4.0'
     compile('org.springframework.boot:spring-boot-starter-hateoas')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
