@@ -5,13 +5,14 @@ import org.springframework.hateoas.ResourceSupport;
 
 public class ThingRepresentation extends ResourceSupport {
 
-    private final String name;
+    private final Thing thing;
 
     public ThingRepresentation(Thing thing) {
-        this.name = thing.getName();
+        this.thing = thing;
     }
 
     public String getName() {
-        return name;
+        return thing.getName();
     }
+
 }

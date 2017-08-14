@@ -27,18 +27,17 @@ public class InMemoryThingRepository implements ThingRepository {
     }
 
     @Override
-    public Mono<Void> save(Mono<Thing> thing) {
-        Mono<Thing> pMono = thing.doOnNext(t -> {
+    public Mono<Thing> save(Mono<Thing> thing) {
+        return thing.doOnNext(t -> {
             if (t.getId() == null) {
                 t.setId(idGenerator.getAndIncrement());
             }
             repository.put(t.getId(), t);
         });
-        return pMono.thenEmpty(Mono.empty());
     }
 
     @Override
-    public Mono<Void> update(Mono<Thing> thing) {
+    public Mono<Thing> update(Mono<Thing> thing) {
         return save(thing);
     }
 

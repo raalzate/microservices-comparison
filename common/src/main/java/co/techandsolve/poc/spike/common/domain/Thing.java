@@ -1,31 +1,22 @@
 package co.techandsolve.poc.spike.common.domain;
 
-public class Thing {
+import lombok.Getter;
+import lombok.Setter;
 
+
+public class Thing {
+    @Getter @Setter
     private Integer id;
+    @Getter @Setter
     private String name;
 
-    public Thing(String name) {
-        this.name = name;
-    }
-
-    Thing() {
-
-    }
-
-    public void setId(Integer id) {
+    public Thing(Integer id, String name){
         this.id = id;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
+    public Thing(){
+
     }
 
-    public String getName() {
-        return name;
-    }
 }

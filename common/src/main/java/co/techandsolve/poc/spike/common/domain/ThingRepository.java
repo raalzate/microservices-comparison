@@ -10,9 +10,9 @@ public interface ThingRepository {
 
     Flux<Thing> all();
 
-    Mono<Void> save(Mono<Thing> thing);
+    Mono<Thing> save(Mono<Thing> thing);
 
-    Mono<Void> update(Mono<Thing> thing);
+    Mono<Thing> update(Mono<Thing> thing);
 
     Mono<Void> delete(Mono<Thing> thing);
 }
