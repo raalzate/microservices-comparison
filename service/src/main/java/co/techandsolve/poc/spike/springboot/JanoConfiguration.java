@@ -25,28 +25,29 @@ import java.util.Optional;
 @Configuration
 public class JanoConfiguration {
 
-    @Bean(name = "shiroFilter")
+    @Bean(name = "shiroFilterFactoryBean")
     public ShiroFilterFactoryBean shiroFilter() {
         SecuredApplication securedApp = getSecuredApplication();
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
-        factoryBean.setSecurityManager(securityManager(securedApp));
-        factoryBean.setFilters(getFilters(securedApp));
+        factoryBean.setSecurityManager(securityManager());
+      //  factoryBean.setFilters(getFilters(securedApp));
         factoryBean.setFilterChainDefinitionMap(getFilterChainDefinitionMapping());
         return factoryBean;
     }
 
     @Bean(name = "securityManager")
-    public DefaultWebSecurityManager securityManager(SecuredApplication securedApp) {
+    public DefaultWebSecurityManager securityManager() {
         final DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(getAzureAuthenticationRealm(securedApp));
+        securityManager.setRealm(getAzureAuthenticationRealm());
         return securityManager;
     }
 
 
     @Bean(name = "realm")
     @DependsOn("lifecycleBeanPostProcessor")
-    public AzureAuthenticationRealm getAzureAuthenticationRealm(SecuredApplication securedApp) {
+    public AzureAuthenticationRealm getAzureAuthenticationRealm() {
         AzureAuthenticationRealm azureAuthenticationRealm = new AzureAuthenticationRealm();
+        SecuredApplication securedApp = getSecuredApplication();
         azureAuthenticationRealm.setSecuredApplication(securedApp);
         return azureAuthenticationRealm;
     }
@@ -88,16 +89,16 @@ public class JanoConfiguration {
         restAPIAuthenticationFilter.setValidacionExplicitaDeIPs(false);
         resourceAuthorizationFilter.setSecuredApplication(securedApp);
 
-        filters.put("restAutnFilter", restAPIAuthenticationFilter);
-        filters.put("resAutzFilter", resourceAuthorizationFilter);
+     //   filters.put("restAutnFilter", restAPIAuthenticationFilter);
+      //  filters.put("resAutzFilter", resourceAuthorizationFilter);
         return filters;
     }
 
     private Map<String,String> getFilterChainDefinitionMapping() {
         Map<String,String> filterChainDefinitionMapping = new HashMap<>();
-        filterChainDefinitionMapping.put("/jano/auth", "noSessionCreation, anon");
-        filterChainDefinitionMapping.put("/jano/**", "noSessionCreation, restAutnFilter");
-        filterChainDefinitionMapping.put("/**", "noSessionCreation, restAutnFilter, resAutzFilter");
+       // filterChainDefinitionMapping.put("/jano/auth", "noSessionCreation, anon");
+       // filterChainDefinitionMapping.put("/jano/**", "noSessionCreation, restAutnFilter");
+        filterChainDefinitionMapping.put("/**", "noSessionCreation, anon");
         return filterChainDefinitionMapping;
     }
 
