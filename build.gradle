@@ -12,7 +12,6 @@ subprojects {
         maven { url 'http://repo.spring.io/milestone' }
         mavenCentral()
         jcenter()
-        mavenLocal()
     }
 
     dependencies {
@@ -25,13 +24,6 @@ subprojects {
 
 project(':service') {
     dependencies {
-        compile 'co.com.proteccion.jano:jano:2.0.0-beta4'
-        compile 'co.com.proteccion.jano:jano-token:2.0.0-beta3'
-        compile 'com.google.code.gson:gson:2.8.0'
-        compile 'com.google.guava:guava:18.0'
-        compile "org.glassfish.jersey.core:jersey-server"
-        compile "org.glassfish.jersey.containers:jersey-container-servlet"
-        compile "org.glassfish.jersey.media:jersey-media-json-jackson"
         compile project(':core')
     }
 }
