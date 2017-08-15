@@ -64,7 +64,7 @@ public class ThingControllerTest {
                 .collect(Collectors.toList());
 
 
-        assert results.size() > 2;
+        assert results.size() >= 2;
 
     }
 }
