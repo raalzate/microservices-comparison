@@ -9,6 +9,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class ThingControllerTest {
     }
 
     @Test
-    public void agregarUnNuevoItem() {
+    public void addOneNew() {
         Thing response = webClient.post().uri("/thing")
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(0, "IT")))
@@ -44,7 +45,7 @@ public class ThingControllerTest {
     }
 
     @Test
-    public void agregarYListar() {
+    public void addAndList() {
 
         webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(1, "IT 1")))
@@ -56,17 +57,40 @@ public class ThingControllerTest {
                 .exchange()
                 .block();
 
-        List<Thing> results = webClient.get().uri("/things")
+        long counts = webClient.get().uri("/things")
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToFlux(Thing.class)
                 .toStream()
-                .collect(Collectors.toList());
+                .count();
 
+        assert counts >= 2;
+    }
 
-        assert results.size() == 2;
-        assert "IT 1".equals(results.get(0).getName());
-        assert "IT 2".equals(results.get(1).getName());
+    @Test
+    public void addAndDelete(){
+        webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromObject(new Thing(3, "IT 3")))
+                .exchange()
+                .block();
 
+        ClientResponse res = webClient.delete().uri("/thing/1").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .block();
+
+        assert res.statusCode().value() == 200;
+    }
+
+    @Test
+    public void updateItem(){
+        ClientResponse res = webClient.put().uri("/thing").accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromObject(new Thing(3, "IT 3")))
+                .exchange()
+                .block();
+
+        Thing  thing = res.bodyToMono(Thing.class).block();
+
+        assert res.statusCode().value() == 200;
+        assert "IT 3".equals(thing.getName());
     }
 }
