@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.text.MessageFormat;
 
 @RestController
 public class IndexController {
@@ -15,12 +18,17 @@ public class IndexController {
     private WebClient webClient;
 
 
-    @GetMapping(value = "/")
-    Flux<Thing> index() {
+    @GetMapping(value = "/index")
+    Mono<String> index() {
         return webClient.get().uri("/things")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .flatMapMany(response -> response.bodyToFlux(Thing.class));
+                .flatMapMany(response ->
+                    response.statusCode().value() == 200 ?
+                    response.bodyToFlux(Thing.class) : Flux
+                            .error(new IllegalStateException("Existe algun problema con el servicio."))
+                ).count()
+                .flatMap(c -> Mono.just(MessageFormat.format("Actualmente tiene {0} item(s).", c.intValue())));
     }
 
 }
