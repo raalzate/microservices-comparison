@@ -24,9 +24,9 @@ public class IndexController {
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flatMapMany(response ->
-                    response.statusCode().value() == 200 ?
-                    response.bodyToFlux(Thing.class) : Flux
-                            .error(new IllegalStateException("Existe algun problema con el servicio."))
+                        response.statusCode().value() == 200 ?
+                                response.bodyToFlux(Thing.class) : Flux
+                                .error(new IllegalStateException("Existe algun problema con el servicio."))
                 ).count()
                 .flatMap(c -> Mono.just(MessageFormat.format("Actualmente tiene {0} item(s).", c.intValue())));
     }

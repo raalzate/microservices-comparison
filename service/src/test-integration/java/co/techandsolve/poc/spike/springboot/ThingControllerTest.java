@@ -12,9 +12,6 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Created by admin on 14/08/2017.
  */
@@ -68,7 +65,7 @@ public class ThingControllerTest {
     }
 
     @Test
-    public void addAndDelete(){
+    public void addAndDelete() {
         webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(3, "IT 3")))
                 .exchange()
@@ -82,13 +79,13 @@ public class ThingControllerTest {
     }
 
     @Test
-    public void updateItem(){
+    public void updateItem() {
         ClientResponse res = webClient.put().uri("/thing").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(3, "IT 3")))
                 .exchange()
                 .block();
 
-        Thing  thing = res.bodyToMono(Thing.class).block();
+        Thing thing = res.bodyToMono(Thing.class).block();
 
         assert res.statusCode().value() == 200;
         assert "IT 3".equals(thing.getName());

@@ -13,9 +13,13 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 public class ThingsController {
 
-    @Autowired
+
     private ThingRepositoryAdapter thingRepository;
 
+    @Autowired
+    public ThingsController(ThingRepositoryAdapter thingRepository){
+        this.thingRepository = thingRepository;
+    }
 
     @GetMapping(value = "/things")
     public Flux<ThingRepresentation> all() {

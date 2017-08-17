@@ -4,7 +4,9 @@ import co.com.proteccion.jano.SecuredApplication;
 import co.com.proteccion.jano.datasource.FlatFileConnection;
 import co.techandsolve.poc.spike.springboot.config.JanoConfiguration;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -16,11 +18,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 @EnableWebFlux
 public class Main {
 
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication app = new SpringApplication(Main.class);
+        app.setBannerMode(Banner.Mode.OFF);
+        app.run(args);
     }
 
     @Bean
