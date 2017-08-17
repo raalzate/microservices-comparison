@@ -1,4 +1,4 @@
-package co.techandsolve.poc.spike.common.domain;
+package co.techandsolve.poc.spike.core.domain;
 
 public class Thing {
 

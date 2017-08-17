@@ -1,4 +1,4 @@
-package co.techandsolve.poc.spike.common.hateoas;
+package co.techandsolve.poc.spike.core.hateoas;
 
 public class Link {
     private String rel;

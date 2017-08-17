@@ -1,7 +1,7 @@
 package co.techandsolve.poc.spike.springboot.thing;
 
-import co.techandsolve.poc.spike.common.domain.Thing;
-import co.techandsolve.poc.spike.common.domain.ThingRepository;
+import co.techandsolve.poc.spike.core.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.ThingRepository;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package co.techandsolve.poc.spike.springboot.thing;
 
-import co.techandsolve.poc.spike.common.persistence.InMemoryThingRepository;
+import co.techandsolve.poc.spike.core.persistence.InMemoryThingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

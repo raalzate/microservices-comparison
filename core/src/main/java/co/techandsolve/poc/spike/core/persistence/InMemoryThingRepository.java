@@ -1,7 +1,7 @@
-package co.techandsolve.poc.spike.common.persistence;
+package co.techandsolve.poc.spike.core.persistence;
 
-import co.techandsolve.poc.spike.common.domain.Thing;
-import co.techandsolve.poc.spike.common.domain.ThingRepository;
+import co.techandsolve.poc.spike.core.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.ThingRepository;
 
 import javax.inject.Singleton;
 import java.util.ArrayList;

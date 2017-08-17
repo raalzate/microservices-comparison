@@ -1,4 +1,4 @@
-package co.techandsolve.poc.spike.common.domain;
+package co.techandsolve.poc.spike.core.domain;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package co.techandsolve.poc.spike.springboot.index;
 
-import co.techandsolve.poc.spike.common.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.Thing;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import static java.util.stream.Collectors.toList;
 @RestController
 public class IndexController {
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     @ResponseBody
     String index() {
 
