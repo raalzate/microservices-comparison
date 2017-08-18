@@ -1,6 +1,7 @@
 package co.techandsolve.poc.spike.springboot;
 
 import co.techandsolve.poc.spike.core.domain.Thing;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +10,9 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * Created by admin on 14/08/2017.
@@ -31,14 +33,21 @@ public class ThingControllerTest {
 
     @Test
     public void addOneNew() {
-        Thing response = webClient.post().uri("/thing")
+        webClient.post().uri("/thing")
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(0, "IT")))
-                .retrieve()
-                .bodyToMono(Thing.class)
+                .exchange()
+                .flatMap(response ->
+                        response.statusCode().value() == 200 ?
+                                response.bodyToMono(Thing.class) :
+                                Mono.error(new IllegalStateException())
+                )
+                .flatMap(thing -> {
+                    Assert.assertEquals("IT", thing.getName());
+                    return Mono.empty();
+                })
+                .doOnError(throwable -> Assert.fail())
                 .block();
-
-        assert "IT".equals(response.getName());
     }
 
     @Test
@@ -47,21 +56,35 @@ public class ThingControllerTest {
         webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(1, "IT 1")))
                 .exchange()
-                .block();
+                .flatMap(response ->
+                        response.statusCode().value() == 200 ?
+                                response.bodyToMono(Thing.class) :
+                                Mono.error(new IllegalStateException())
+                ).doOnError(throwable -> Assert.fail()).block();
+
 
         webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(2, "IT 2")))
                 .exchange()
-                .block();
+                .flatMap(response ->
+                        response.statusCode().value() == 200 ?
+                                response.bodyToMono(Thing.class) :
+                                Mono.error(new IllegalStateException())
+                ).doOnError(throwable -> Assert.fail()).block();
 
-        long counts = webClient.get().uri("/things")
+        webClient.get().uri("/things")
                 .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToFlux(Thing.class)
-                .toStream()
-                .count();
+                .exchange()
+                .flatMapMany(response ->
+                        response.statusCode().value() == 200 ?
+                                response.bodyToFlux(Thing.class) :
+                                Flux.error(new IllegalStateException())
+                ).doOnError(throwable -> Assert.fail())
+                .count().flatMap(aLong -> {
+            assert aLong.intValue() >= 3;
+            return Mono.empty();
+        }).block();
 
-        assert counts >= 2;
     }
 
     @Test
@@ -69,25 +92,40 @@ public class ThingControllerTest {
         webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(3, "IT 3")))
                 .exchange()
-                .block();
+                .flatMap(response ->
+                        response.statusCode().value() == 200 ?
+                                response.bodyToMono(Thing.class) :
+                                Mono.error(new IllegalStateException())
+                ).doOnError(throwable -> Assert.fail()).block();
 
-        ClientResponse res = webClient.delete().uri("/thing/1").accept(MediaType.APPLICATION_JSON)
+        webClient.delete().uri("/thing/1").accept(MediaType.APPLICATION_JSON)
                 .exchange()
+                .flatMap(response ->
+                        response.statusCode().value() == 200 ? Mono.empty() :
+                                Mono.error(new IllegalStateException())
+                ).doOnError(throwable -> Assert.fail())
                 .block();
 
-        assert res.statusCode().value() == 200;
     }
 
     @Test
     public void updateItem() {
-        ClientResponse res = webClient.put().uri("/thing").accept(MediaType.APPLICATION_JSON)
+
+        webClient.put().uri("/thing").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Thing(3, "IT 3")))
                 .exchange()
+                .flatMap(response ->
+                        response.statusCode().value() == 200 ?
+                                response.bodyToMono(Thing.class) :
+                                Mono.error(new IllegalStateException())
+                )
+                .flatMap(thing -> {
+                    Assert.assertEquals("IT 3", thing.getName());
+                    return Mono.empty();
+                })
+                .doOnError(throwable -> Assert.fail(throwable.getMessage()))
                 .block();
 
-        Thing thing = res.bodyToMono(Thing.class).block();
 
-        assert res.statusCode().value() == 200;
-        assert "IT 3".equals(thing.getName());
     }
 }
