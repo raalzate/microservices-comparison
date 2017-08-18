@@ -1,6 +1,6 @@
 package co.techandsolve.poc.spike.springboot.index;
 
-import co.techandsolve.poc.spike.core.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +20,12 @@ public class IndexController {
 
     @GetMapping(value = "/index")
     Mono<String> index() {
-        return webClient.get().uri("/things")
+        return webClient.get().uri("/tasks")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flatMapMany(response ->
                         response.statusCode().value() == 200 ?
-                                response.bodyToFlux(Thing.class) : Flux
+                                response.bodyToFlux(Task.class) : Flux
                                 .error(new IllegalStateException("Existe algun problema con el servicio."))
                 ).count()
                 .flatMap(c -> Mono.just(MessageFormat.format("Actualmente tiene {0} item(s).", c.intValue())));

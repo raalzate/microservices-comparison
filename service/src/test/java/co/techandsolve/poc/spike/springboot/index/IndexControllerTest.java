@@ -1,6 +1,5 @@
 package co.techandsolve.poc.spike.springboot.index;
 
-import co.techandsolve.poc.spike.springboot.thing.ThingRepositoryAdapter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

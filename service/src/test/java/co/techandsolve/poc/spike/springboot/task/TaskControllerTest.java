@@ -1,6 +1,6 @@
-package co.techandsolve.poc.spike.springboot.thing;
+package co.techandsolve.poc.spike.springboot.task;
 
-import co.techandsolve.poc.spike.core.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.Task;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,28 +31,28 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners(MockitoTestExecutionListener.class)
-public class ThingsControllerTest {
+public class TaskControllerTest {
 
     @MockBean
-    private ThingRepositoryAdapter repository;
+    private TaskRepositoryAdapter repository;
 
     @Captor
-    private ArgumentCaptor<Mono<Thing>> argThing;
+    private ArgumentCaptor<Mono<Task>> argTask;
 
     private WebTestClient webTestClient;
-    private Thing thing1 = new Thing(1, "Test 1");
-    private Thing thing2 = new Thing(2, "Test 2");
+    private Task task1 = new Task(1, "Test 1");
+    private Task task2 = new Task(2, "Test 2");
 
     @Before
     public void setup() {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
 
-        given(repository.all()).willReturn(Flux.just(thing1, thing2));
-        given(repository.update(argThing.capture())).willReturn(Mono.just(thing2));
-        given(repository.save(argThing.capture())).willReturn(Mono.just(thing1));
+        given(repository.all()).willReturn(Flux.just(task1, task2));
+        given(repository.update(argTask.capture())).willReturn(Mono.just(task2));
+        given(repository.save(argTask.capture())).willReturn(Mono.just(task1));
         given(repository.delete(1)).willReturn(Mono.empty());
 
-        webTestClient = WebTestClient.bindToController(new ThingsController(repository))
+        webTestClient = WebTestClient.bindToController(new TaskController(repository))
                 .configureClient()
                 .baseUrl("/")
                 .build();
@@ -60,44 +60,44 @@ public class ThingsControllerTest {
 
     @Test
     public void create() {
-        webTestClient.post().uri("/thing").accept(APPLICATION_JSON)
-                .body(BodyInserters.fromObject(thing1))
+        webTestClient.post().uri("/task").accept(APPLICATION_JSON)
+                .body(BodyInserters.fromObject(task1))
                 .exchange()
                 .expectStatus().is2xxSuccessful();
 
-        Assert.assertEquals("Test 1", argThing.getValue().block().getName());
+        argTask.getValue().subscribe(task -> Assert.assertEquals("Test 1", task.getName()));
     }
 
     @Test
     public void delete() {
-        webTestClient.delete().uri("/thing/{id}", 1).accept(APPLICATION_JSON)
+        webTestClient.delete().uri("/task/{id}", 1).accept(APPLICATION_JSON)
                 .exchange()
                 .expectStatus().is2xxSuccessful();
 
-        webTestClient.delete().uri("/thing").accept(APPLICATION_JSON)
+        webTestClient.delete().uri("/task").accept(APPLICATION_JSON)
                 .exchange()
                 .expectStatus().is4xxClientError();
     }
 
     @Test
     public void update() {
-        webTestClient.put().uri("/thing").accept(APPLICATION_JSON)
-                .body(BodyInserters.fromObject(thing2))
+        webTestClient.put().uri("/task").accept(APPLICATION_JSON)
+                .body(BodyInserters.fromObject(task2))
                 .exchange()
                 .expectStatus().is2xxSuccessful();
 
-        Assert.assertEquals("Test 2", argThing.getValue().block().getName());
+        argTask.getValue().subscribe(task -> Assert.assertEquals("Test 2", task.getName()));
     }
 
     @Test
     public void list() {
-        EntityExchangeResult<List<Thing>> results = webTestClient.get().uri("/things").accept(APPLICATION_JSON)
+        EntityExchangeResult<List<Task>> results = webTestClient.get().uri("/tasks").accept(APPLICATION_JSON)
                 .exchange()
-                .expectBodyList(Thing.class)
+                .expectBodyList(Task.class)
                 .hasSize(2)
                 .returnResult();
 
-        List<Thing> list = results.getResponseBody();
+        List<Task> list = results.getResponseBody();
 
         Assert.assertEquals("Test 1", list.get(0).getName());
         Assert.assertEquals("Test 2", list.get(1).getName());

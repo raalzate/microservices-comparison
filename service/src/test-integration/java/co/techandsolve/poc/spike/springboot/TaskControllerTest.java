@@ -1,6 +1,6 @@
 package co.techandsolve.poc.spike.springboot;
 
-import co.techandsolve.poc.spike.core.domain.Thing;
+import co.techandsolve.poc.spike.core.domain.Task;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ThingControllerTest {
+public class TaskControllerTest {
 
     private WebClient webClient;
 
@@ -29,17 +29,36 @@ public class ThingControllerTest {
     @Before
     public void setup() {
         this.webClient = WebClient.create("http://localhost:" + this.port);
-    }
 
-    @Test
-    public void addOneNew() {
-        webClient.post().uri("/thing")
-                .accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Thing(0, "IT")))
+        webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromObject(new Task(1, "IT 1")))
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
-                                response.bodyToMono(Thing.class) :
+                                response.bodyToMono(Task.class) :
+                                Mono.error(new IllegalStateException())
+                ).doOnError(throwable -> Assert.fail()).block();
+
+
+        webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromObject(new Task(2, "IT 2")))
+                .exchange()
+                .flatMap(response ->
+                        response.statusCode().value() == 200 ?
+                                response.bodyToMono(Task.class) :
+                                Mono.error(new IllegalStateException())
+                ).doOnError(throwable -> Assert.fail()).block();
+    }
+
+    @Test
+    public void saveTask() {
+        webClient.post().uri("/task")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromObject(new Task(null, "IT")))
+                .exchange()
+                .flatMap(response ->
+                        response.statusCode().value() == 200 ?
+                                response.bodyToMono(Task.class) :
                                 Mono.error(new IllegalStateException())
                 )
                 .flatMap(thing -> {
@@ -51,54 +70,26 @@ public class ThingControllerTest {
     }
 
     @Test
-    public void addAndList() {
-
-        webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Thing(1, "IT 1")))
-                .exchange()
-                .flatMap(response ->
-                        response.statusCode().value() == 200 ?
-                                response.bodyToMono(Thing.class) :
-                                Mono.error(new IllegalStateException())
-                ).doOnError(throwable -> Assert.fail()).block();
-
-
-        webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Thing(2, "IT 2")))
-                .exchange()
-                .flatMap(response ->
-                        response.statusCode().value() == 200 ?
-                                response.bodyToMono(Thing.class) :
-                                Mono.error(new IllegalStateException())
-                ).doOnError(throwable -> Assert.fail()).block();
-
-        webClient.get().uri("/things")
+    public void listOfAll() {
+        webClient.get().uri("/tasks")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flatMapMany(response ->
                         response.statusCode().value() == 200 ?
-                                response.bodyToFlux(Thing.class) :
+                                response.bodyToFlux(Task.class) :
                                 Flux.error(new IllegalStateException())
                 ).doOnError(throwable -> Assert.fail())
                 .count().flatMap(aLong -> {
-            assert aLong.intValue() >= 3;
+            Assert.assertEquals(2, aLong.intValue());
             return Mono.empty();
         }).block();
 
     }
 
     @Test
-    public void addAndDelete() {
-        webClient.post().uri("/thing").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Thing(3, "IT 3")))
-                .exchange()
-                .flatMap(response ->
-                        response.statusCode().value() == 200 ?
-                                response.bodyToMono(Thing.class) :
-                                Mono.error(new IllegalStateException())
-                ).doOnError(throwable -> Assert.fail()).block();
+    public void deleteOne() {
 
-        webClient.delete().uri("/thing/1").accept(MediaType.APPLICATION_JSON)
+        webClient.delete().uri("/task/1").accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ? Mono.empty() :
@@ -109,23 +100,22 @@ public class ThingControllerTest {
     }
 
     @Test
-    public void updateItem() {
+    public void updateOne() {
 
-        webClient.put().uri("/thing").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Thing(3, "IT 3")))
+        webClient.put().uri("/task").accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromObject(new Task(2, "IT 2")))
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
-                                response.bodyToMono(Thing.class) :
+                                response.bodyToMono(Task.class) :
                                 Mono.error(new IllegalStateException())
                 )
                 .flatMap(thing -> {
-                    Assert.assertEquals("IT 3", thing.getName());
+                    Assert.assertEquals("IT 2", thing.getName());
                     return Mono.empty();
                 })
                 .doOnError(throwable -> Assert.fail(throwable.getMessage()))
                 .block();
-
 
     }
 }

@@ -1,7 +1,7 @@
 package co.techandsolve.poc.spike.core.persistence;
 
-import co.techandsolve.poc.spike.core.domain.Thing;
-import co.techandsolve.poc.spike.core.domain.ThingRepository;
+import co.techandsolve.poc.spike.core.domain.Task;
+import co.techandsolve.poc.spike.core.domain.TaskRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -11,23 +11,23 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class InMemoryThingRepository implements ThingRepository {
+public class InMemoryTaskRepository implements TaskRepository {
 
     private final AtomicInteger idGenerator = new AtomicInteger(1);
-    private final Map<Integer, Thing> repository = new ConcurrentHashMap<>();
+    private final Map<Integer, Task> repository = new ConcurrentHashMap<>();
 
     @Override
-    public Mono<Thing> byId(int id) {
+    public Mono<Task> byId(int id) {
         return Mono.justOrEmpty(repository.get(id));
     }
 
     @Override
-    public Flux<Thing> all() {
+    public Flux<Task> all() {
         return Flux.fromIterable(repository.values());
     }
 
     @Override
-    public Mono<Thing> save(Mono<Thing> thing) {
+    public Mono<Task> save(Mono<Task> thing) {
         return thing.doOnNext(t -> {
             if (t.getId() == null) {
                 t.setId(idGenerator.getAndIncrement());
@@ -37,13 +37,13 @@ public class InMemoryThingRepository implements ThingRepository {
     }
 
     @Override
-    public Mono<Thing> update(Mono<Thing> thing) {
+    public Mono<Task> update(Mono<Task> thing) {
         return save(thing);
     }
 
     @Override
-    public Mono<Void> delete(Mono<Thing> thing) {
-        return thing.doOnNext(t -> repository.remove(t.getId()))
+    public Mono<Void> delete(int id) {
+        return byId(id).doOnNext(t -> repository.remove(t.getId()))
                 .thenEmpty(Mono.empty());
     }
 }
