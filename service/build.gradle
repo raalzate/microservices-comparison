@@ -25,11 +25,20 @@ repositories {
 
 configurations { providedCompile }
 
+configurations {
+    all*.exclude module: 'qpid-broker-plugins-management-http'
+    all*.exclude module: 'qpid-broker-plugins-websocket'
+}
+
 dependencies {
+    runtime 'org.hsqldb:hsqldb'
+
     compile('org.springframework.boot:spring-boot-starter-web') {
         exclude module: "spring-boot-starter-tomcat"
     }
     compile 'org.springframework.boot:spring-boot-starter-webflux'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'mysql:mysql-connector-java:5.1.36'
     compile 'org.apache.shiro:shiro-spring-boot-web-starter:1.4.0'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'

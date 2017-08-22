@@ -1,6 +1,6 @@
 package co.techandsolve.poc.spike.springboot.task;
 
-import co.techandsolve.poc.spike.core.domain.Task;
+import co.techandsolve.poc.spike.springboot.task.domine.Task;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,28 +34,31 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class TaskControllerTest {
 
     @MockBean
-    private TaskRepositoryAdapter repository;
+    private TaskRepositoryAdapter adapter;
+
 
     @Captor
-    private ArgumentCaptor<Mono<Task>> argTask;
+    private ArgumentCaptor<Task> argTaskSave;
 
     private WebTestClient webTestClient;
-    private Task task1 = new Task(1, "Test 1");
-    private Task task2 = new Task(2, "Test 2");
+
+    private Task task1 = new Task(1L, "Test 1");
+    private Task task2 = new Task(2L, "Test 2");
 
     @Before
     public void setup() {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
 
-        given(repository.all()).willReturn(Flux.just(task1, task2));
-        given(repository.update(argTask.capture())).willReturn(Mono.just(task2));
-        given(repository.save(argTask.capture())).willReturn(Mono.just(task1));
-        given(repository.delete(1)).willReturn(Mono.empty());
+        given(adapter.all()).willReturn(Flux.just(task1, task2));
+        given(adapter.update(argTaskSave.capture())).willReturn(Mono.just(task2));
+        given(adapter.save(argTaskSave.capture())).willReturn(Mono.just(task1));
+        given(adapter.byId(1L)).willReturn(Mono.empty());
 
-        webTestClient = WebTestClient.bindToController(new TaskController(repository))
+        webTestClient = WebTestClient.bindToController(new TaskController(adapter))
                 .configureClient()
                 .baseUrl("/")
                 .build();
+
     }
 
     @Test
@@ -65,7 +68,7 @@ public class TaskControllerTest {
                 .exchange()
                 .expectStatus().is2xxSuccessful();
 
-        argTask.getValue().subscribe(task -> Assert.assertEquals("Test 1", task.getName()));
+        Assert.assertEquals("Test 1", argTaskSave.getValue().getName());
     }
 
     @Test
@@ -86,7 +89,7 @@ public class TaskControllerTest {
                 .exchange()
                 .expectStatus().is2xxSuccessful();
 
-        argTask.getValue().subscribe(task -> Assert.assertEquals("Test 2", task.getName()));
+        Assert.assertEquals("Test 2", argTaskSave.getValue().getName());
     }
 
     @Test

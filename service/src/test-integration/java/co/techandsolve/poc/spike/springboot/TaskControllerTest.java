@@ -1,6 +1,7 @@
 package co.techandsolve.poc.spike.springboot;
 
-import co.techandsolve.poc.spike.core.domain.Task;
+import co.techandsolve.poc.spike.springboot.task.domine.Tag;
+import co.techandsolve.poc.spike.springboot.task.domine.Task;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Arrays;
 
 /**
  * Created by admin on 14/08/2017.
@@ -31,7 +34,7 @@ public class TaskControllerTest {
         this.webClient = WebClient.create("http://localhost:" + this.port);
 
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Task(1, "IT 1")))
+                .body(BodyInserters.fromObject(new Task(1L, "IT 1")))
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -41,7 +44,7 @@ public class TaskControllerTest {
 
 
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Task(2, "IT 2")))
+                .body(BodyInserters.fromObject(new Task(1L, "IT 2")))
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -52,9 +55,11 @@ public class TaskControllerTest {
 
     @Test
     public void saveTask() {
+        Task task = new Task(null, "IT");
+        task.setTags(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
         webClient.post().uri("/task")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Task(null, "IT")))
+                .body(BodyInserters.fromObject(task))
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -103,7 +108,7 @@ public class TaskControllerTest {
     public void updateOne() {
 
         webClient.put().uri("/task").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Task(2, "IT 2")))
+                .body(BodyInserters.fromObject(new Task(1L, "IT 2")))
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?

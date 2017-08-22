@@ -1,7 +1,7 @@
 package co.techandsolve.poc.spike.springboot.task;
 
-import co.techandsolve.poc.spike.core.domain.Task;
-import co.techandsolve.poc.spike.core.domain.TaskManager;
+import co.techandsolve.poc.spike.springboot.task.domine.Task;
+import co.techandsolve.poc.spike.springboot.task.persistence.TaskReactiveAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,21 +12,20 @@ import reactor.core.publisher.Flux;
 public class TaskManagerController {
 
 
-    private TaskManager taskManager;
+    private TaskRepositoryAdapter thingRepository;
 
     @Autowired
-    public TaskManagerController(TaskManager taskManager) {
-        this.taskManager = taskManager;
+    public TaskManagerController(TaskRepositoryAdapter thingRepository) {
+        this.thingRepository = thingRepository;
     }
 
     @GetMapping(value = "/tasks/tag/{tag}")
     public Flux<Task> listByTag(@PathVariable("tag") String tag) {
-        return taskManager.listByTag(tag);
+        return thingRepository.listByTag(tag);
     }
-
 
     @GetMapping(value = "/tasks/done")
     public Flux<Task> listByStatusDone() {
-        return taskManager.listByStatusDone();
+        return thingRepository.listByStatusDone();
     }
 }

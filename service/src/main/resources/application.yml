@@ -2,6 +2,13 @@ server:
   host: localhost
   port: 8443
 
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/todo
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
 securedApplication:
   clientId: 69f46a95-55ce-412d-8cfc-8c8b0ef18dbc
   tenant: f47dcce4-02e7-4d88-a659-a2d0bbe170e7
