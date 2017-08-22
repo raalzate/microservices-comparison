@@ -14,7 +14,6 @@ public class TaskController {
 
     @Autowired
     public TaskController(TaskRepositoryAdapter thingRepository) {
-        System.out.println(thingRepository);
         this.thingRepository = thingRepository;
     }
 
