@@ -75,7 +75,7 @@ public class TaskManagerRepositoryControllerTest {
                                 response.bodyToFlux(Task.class) :
                                 Flux.error(new IllegalStateException())
                 ).doOnError(throwable -> Assert.fail())
-                .toStream().forEach(task -> Assert.assertEquals("IT 2", task.getName()));
+                .toStream().forEach(task -> Assert.assertEquals("IT 1", task.getName()));
 
     }
 

@@ -49,7 +49,7 @@ public class TaskRepositoryAdapter implements TaskReactiveAdapter {
 
     @Override
     public Flux<Task> listByTag(String tag) {
-        return Flux.fromStream(thingRepository.findAll().stream());
+        return Flux.fromStream(thingRepository.listByTag(tag).stream());
     }
 
     @Override
