@@ -1,5 +1,6 @@
-package co.techandsolve.poc.spike.springboot;
+package co.techandsolve.poc.spike.springboot.web;
 
+import co.techandsolve.poc.spike.springboot.AccessTokenUtils;
 import co.techandsolve.poc.spike.springboot.task.domine.Tag;
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
 import org.junit.Assert;
@@ -24,7 +25,7 @@ import java.util.Arrays;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:truncate.sql")
-public class TaskManagerRepositoryControllerTest {
+public class TaskManagerControllerTest {
 
     private WebClient webClient;
 

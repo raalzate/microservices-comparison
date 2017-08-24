@@ -1,4 +1,4 @@
-package co.techandsolve.poc.spike.springboot.task;
+package co.techandsolve.poc.spike.springboot.task.persistence;
 
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
 import co.techandsolve.poc.spike.springboot.common.ReactiveAdapter;

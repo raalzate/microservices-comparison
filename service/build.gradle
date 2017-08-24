@@ -32,16 +32,19 @@ configurations {
 
 dependencies {
     runtime 'org.hsqldb:hsqldb'
+    compile 'mysql:mysql-connector-java:5.1.36'
+
 
     compile('org.springframework.boot:spring-boot-starter-web') {
         exclude module: "spring-boot-starter-tomcat"
     }
     compile 'org.springframework.boot:spring-boot-starter-webflux'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile 'mysql:mysql-connector-java:5.1.36'
-    compile 'com.microsoft.azure:adal4j:1.1.2'
-    compile 'com.nimbusds:oauth2-oidc-sdk:4.5'
+    compile 'org.springframework.boot:spring-boot-actuator'
+
     compile 'org.apache.shiro:shiro-spring-boot-web-starter:1.4.0'
+    compile "org.flywaydb:flyway-core"
+
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.boot:spring-boot-test-autoconfigure'

@@ -10,8 +10,10 @@ interface JanoFilterChain {
     static Map<String, String> getDefinitionMap() {
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
         filterChainDefinitionMap.put("/jano/auth", "noSessionCreation, anon");
-        filterChainDefinitionMap.put("/**", "noSessionCreation, restAutnFilter");
+        filterChainDefinitionMap.put("/task/**", "noSessionCreation, restAutnFilter");
+        filterChainDefinitionMap.put("/tasks/**", "noSessionCreation, restAutnFilter");
         filterChainDefinitionMap.put("/index", "noSessionCreation, resAutzFilter");
+        filterChainDefinitionMap.put("/application/**", "noSessionCreation, anon");
 
         return filterChainDefinitionMap;
     }

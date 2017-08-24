@@ -1,5 +1,7 @@
-package co.techandsolve.poc.spike.springboot.task;
+package co.techandsolve.poc.spike.springboot.task.web;
 
+import co.techandsolve.poc.spike.springboot.task.service.TaskService;
+import co.techandsolve.poc.spike.springboot.task.web.TaskManagerController;
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,10 +32,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners(MockitoTestExecutionListener.class)
-public class TaskManagerRepositoryControllerTest {
+public class TaskManagerControllerTest {
 
     @MockBean
-    private TaskAdapterRepository repository;
+    private TaskService service;
 
     @Captor
     private ArgumentCaptor<Mono<Task>> argTask;
@@ -46,10 +48,10 @@ public class TaskManagerRepositoryControllerTest {
     public void setup() {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
 
-        given(repository.listByTag("tag1")).willReturn(Flux.just(task1, task2));
-        given(repository.listByStatusDone()).willReturn(Flux.just(task1));
+        given(service.listByTag("tag1")).willReturn(Flux.just(task1, task2));
+        given(service.listByStatusDone()).willReturn(Flux.just(task1));
 
-        webTestClient = WebTestClient.bindToController(new TaskManagerController(repository))
+        webTestClient = WebTestClient.bindToController(new TaskManagerController(service))
                 .configureClient()
                 .baseUrl("/")
                 .build();

@@ -1,25 +1,26 @@
-package co.techandsolve.poc.spike.springboot.index;
+package co.techandsolve.poc.spike.springboot.index.service;
 
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.text.MessageFormat;
 
-@RestController
-public class IndexController {
+/**
+ * Created by admin on 24/08/2017.
+ */
+@Service
+public class IndexConsumerService implements IndexService {
 
     @Autowired
     private WebClient webClient;
 
-
-    @GetMapping(value = "/index")
-    Mono<String> index() {
+    @Override
+    public Mono<String> summary() {
         return webClient.get().uri("/tasks")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
@@ -30,5 +31,4 @@ public class IndexController {
                 ).count()
                 .flatMap(c -> Mono.just(MessageFormat.format("Actualmente tiene {0} item(s).", c.intValue())));
     }
-
 }

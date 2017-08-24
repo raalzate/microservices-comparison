@@ -1,6 +1,7 @@
-package co.techandsolve.poc.spike.springboot.task;
+package co.techandsolve.poc.spike.springboot.task.web;
 
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
+import co.techandsolve.poc.spike.springboot.task.persistence.TaskAdapterRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

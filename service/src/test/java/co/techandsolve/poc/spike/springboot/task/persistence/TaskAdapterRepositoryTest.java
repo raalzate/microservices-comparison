@@ -1,7 +1,6 @@
-package co.techandsolve.poc.spike.springboot.task;
+package co.techandsolve.poc.spike.springboot.task.persistence;
 
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
-import co.techandsolve.poc.spike.springboot.task.persistence.TaskRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,16 +16,16 @@ import static org.mockito.Mockito.*;
  * Created by admin on 16/08/2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TaskRepositoryTest {
+public class TaskAdapterRepositoryTest {
 
     private TaskAdapterRepository adapter;
 
     @Mock
-    private TaskRepository taskRepository;
+    private TaskRepository repository;
 
     @Before
     public void setup() {
-        adapter = spy(new TaskAdapterRepository(taskRepository));
+        adapter = spy(new TaskAdapterRepository(repository));
     }
 
     @Test
@@ -34,12 +33,12 @@ public class TaskRepositoryTest {
         Task task1 = new Task(1L, "Task 1");
         Task task2 = new Task(2L, "Task 2");
 
-        when(taskRepository.listByTag("tag1")).thenReturn(Arrays.asList(task1, task2));
+        when(repository.listByTag("tag1")).thenReturn(Arrays.asList(task1, task2));
 
         Flux<Task> list = adapter.listByTag("tag1");
 
         assert list.toStream().findAny().isPresent();
-        verify(taskRepository).listByTag("tag1");
+        verify(repository).listByTag("tag1");
 
     }
 
@@ -51,12 +50,12 @@ public class TaskRepositoryTest {
         Task task2 = new Task(2L, "Task 2");
         Task task3 = new Task(3L, "Task 3");
 
-        when(taskRepository.listByDone()).thenReturn(Arrays.asList(task1, task2, task3));
+        when(repository.listByDone()).thenReturn(Arrays.asList(task1, task2, task3));
 
         Flux<Task> list = adapter.listByStatusDone();
 
         assert list.toStream().count() == 3;
-        verify(taskRepository).listByDone();
+        verify(repository).listByDone();
 
     }
 
