@@ -25,11 +25,9 @@ subprojects {
 
 project(':service') {
     dependencies {
-        compile 'co.com.proteccion.jano:jano:2.0.0-beta4'
-        compile 'co.com.proteccion.jano:jano-token:2.0.0-beta3'
-        compile 'com.google.code.gson:gson:2.8.0'
-        compile 'com.google.guava:guava:18.0'
-        compile "org.glassfish.jersey.core:jersey-server"
+        compile 'co.com.proteccion.jano:jano-core:3.0.0-beta1'
+        compile 'co.com.proteccion.jano:jano-shiro:3.0.0-beta1'
+        compile 'co.com.proteccion.jano:jano-token:3.0.0-beta1'
         compile "org.glassfish.jersey.containers:jersey-container-servlet"
         compile "org.glassfish.jersey.media:jersey-media-json-jackson"
     }

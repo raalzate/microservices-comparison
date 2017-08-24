@@ -9,9 +9,9 @@ import java.util.Map;
 interface JanoFilterChain {
     static Map<String, String> getDefinitionMap() {
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
-        filterChainDefinitionMap.put("/**", "noSessionCreation, anon");
-     //   filterChainDefinitionMap.put("/jano/auth", "noSessionCreation, anon");
-      //  filterChainDefinitionMap.put("/things", "noSessionCreation, restAutnFilter");
+        filterChainDefinitionMap.put("/jano/auth", "noSessionCreation, anon");
+        filterChainDefinitionMap.put("/**", "noSessionCreation, restAutnFilter");
+        filterChainDefinitionMap.put("/index", "noSessionCreation, resAutzFilter");
 
         return filterChainDefinitionMap;
     }

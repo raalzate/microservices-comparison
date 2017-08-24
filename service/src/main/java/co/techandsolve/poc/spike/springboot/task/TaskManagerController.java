@@ -1,7 +1,6 @@
 package co.techandsolve.poc.spike.springboot.task;
 
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
-import co.techandsolve.poc.spike.springboot.task.persistence.TaskReactiveAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +11,10 @@ import reactor.core.publisher.Flux;
 public class TaskManagerController {
 
 
-    private TaskRepositoryAdapter thingRepository;
+    private TaskAdapterRepository thingRepository;
 
     @Autowired
-    public TaskManagerController(TaskRepositoryAdapter thingRepository) {
+    public TaskManagerController(TaskAdapterRepository thingRepository) {
         this.thingRepository = thingRepository;
     }
 

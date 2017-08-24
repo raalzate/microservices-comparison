@@ -31,6 +31,11 @@ public class TaskManagerRepositoryControllerTest {
     @LocalServerPort
     private int port;
 
+    private static String token;
+    static {
+        token = AccessTokenUtils.getToken();
+    }
+
     @Before
     public void setup() {
 
@@ -44,6 +49,7 @@ public class TaskManagerRepositoryControllerTest {
 
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(task1))
+                .header("Authorization", token)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -54,6 +60,7 @@ public class TaskManagerRepositoryControllerTest {
 
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(task2))
+                .header("Authorization", token)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -69,6 +76,7 @@ public class TaskManagerRepositoryControllerTest {
 
         webClient.get().uri("/tasks/tag/tag1")
                 .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", token)
                 .exchange()
                 .flatMapMany(response ->
                         response.statusCode().value() == 200 ?
@@ -85,6 +93,7 @@ public class TaskManagerRepositoryControllerTest {
 
         webClient.get().uri("/tasks/done")
                 .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", token)
                 .exchange()
                 .flatMapMany(response ->
                         response.statusCode().value() == 200 ?

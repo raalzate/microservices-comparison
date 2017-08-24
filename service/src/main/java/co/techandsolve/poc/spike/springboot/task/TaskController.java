@@ -10,10 +10,10 @@ import reactor.core.publisher.Mono;
 public class TaskController {
 
 
-    private TaskRepositoryAdapter thingRepository;
+    private TaskAdapterRepository thingRepository;
 
     @Autowired
-    public TaskController(TaskRepositoryAdapter thingRepository) {
+    public TaskController(TaskAdapterRepository thingRepository) {
         this.thingRepository = thingRepository;
     }
 

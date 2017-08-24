@@ -34,7 +34,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class TaskControllerTest {
 
     @MockBean
-    private TaskRepositoryAdapter adapter;
+    private TaskAdapterRepository adapter;
 
 
     @Captor

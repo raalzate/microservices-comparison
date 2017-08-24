@@ -1,7 +1,6 @@
 package co.techandsolve.poc.spike.springboot.task;
 
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
-import co.techandsolve.poc.spike.springboot.task.persistence.TaskRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +33,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class TaskManagerRepositoryControllerTest {
 
     @MockBean
-    private TaskRepositoryAdapter repository;
+    private TaskAdapterRepository repository;
 
     @Captor
     private ArgumentCaptor<Mono<Task>> argTask;

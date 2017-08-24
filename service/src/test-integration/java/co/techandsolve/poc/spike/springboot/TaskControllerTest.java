@@ -17,6 +17,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 /**
  * Created by admin on 14/08/2017.
@@ -32,12 +33,17 @@ public class TaskControllerTest {
     @LocalServerPort
     private int port;
 
+    private static String token;
+    static {
+        token = AccessTokenUtils.getToken();
+    }
+
     @Before
     public void setup() {
         this.webClient = WebClient.create("http://localhost:" + this.port);
-
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(1L, "IT 1")))
+                .header("Authorization", token)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -48,6 +54,7 @@ public class TaskControllerTest {
 
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(1L, "IT 2")))
+                .header("Authorization", token)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -63,6 +70,7 @@ public class TaskControllerTest {
         webClient.post().uri("/task")
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(task))
+                .header("Authorization", token)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -81,6 +89,7 @@ public class TaskControllerTest {
     public void listOfAll() {
         webClient.get().uri("/tasks")
                 .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", token)
                 .exchange()
                 .flatMapMany(response ->
                         response.statusCode().value() == 200 ?
@@ -98,6 +107,7 @@ public class TaskControllerTest {
     public void deleteOne() {
 
         webClient.delete().uri("/task/1").accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", token)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ? Mono.empty() :
@@ -112,6 +122,7 @@ public class TaskControllerTest {
 
         webClient.put().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(1L, "IT 2")))
+                .header("Authorization", token)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
