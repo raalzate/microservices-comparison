@@ -13,6 +13,7 @@ El siguiente proyecto consiste en desarrollar una arquitectura de referencia que
   - **bootRun**: Corre la aplicación.
   - **test**: Corre los test unitarios.
   - **testIntegration**: Corre los test de integración (tener en cuenta que es necesario cambiar el token de autenticación, para esto existe una aplicación que ayuda a generar este token).
+  - **jacocoTestCoverageVerification**: verificar la cobertura de codigo y el número de líneas permitidas.
 
 ## Proyecto demo Auth
 
