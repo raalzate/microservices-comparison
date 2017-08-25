@@ -31,7 +31,7 @@ public class Main {
     @Bean
     WebClient webClient(@Value("${innerClient.host}") String host, @Value("${innerClient.port}") int port) {
         return WebClient.builder().clientConnector(new ReactorClientHttpConnector())
-                .baseUrl(String.format("http://%s:%d", host, port)).build();
+                .baseUrl(String.format("https://%s:%d", host, port)).build();
     }
 
 }

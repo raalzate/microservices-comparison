@@ -40,7 +40,7 @@ public class TaskManagerControllerTest {
     @Before
     public void setup() {
 
-        this.webClient = WebClient.create("http://localhost:" + this.port);
+        this.webClient = WebClient.create("https://localhost:" + this.port);
 
         Task task1 = new Task(1L, "IT 1");
         Task task2 = new Task(2L, "IT 2");

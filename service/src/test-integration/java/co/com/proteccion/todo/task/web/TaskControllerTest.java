@@ -39,7 +39,7 @@ public class TaskControllerTest {
 
     @Before
     public void setup() {
-        this.webClient = WebClient.create("http://localhost:" + this.port);
+        this.webClient = WebClient.create("https://localhost:" + this.port);
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(1L, "IT 1")))
                 .header("Authorization", tokenJWT)
