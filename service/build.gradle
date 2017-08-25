@@ -14,6 +14,7 @@ buildscript {
 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: "jacoco"
 
 repositories {
     mavenCentral()
@@ -29,6 +30,8 @@ configurations {
     all*.exclude module: 'qpid-broker-plugins-management-http'
     all*.exclude module: 'qpid-broker-plugins-websocket'
 }
+
+
 
 dependencies {
     runtime 'org.hsqldb:hsqldb'
@@ -66,9 +69,50 @@ configurations {
     integrationTestCompile.extendsFrom testCompile
     integrationTestRuntime.extendsFrom testRuntime
 }
+
 task testIntegration(type: Test) {
     testClassesDir = sourceSets.integrationTest.output.classesDir
     classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+jacoco {
+    toolVersion = "0.7.6.201602180812"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+
+        rule {
+            enabled = true
+            element = 'CLASS'
+            includes = ['co.com.proteccion.todo.*']
+            excludes = ['co.com.proteccion.todo.*.domain.*']
+            limit {
+                minimum = 0.5
+            }
+        }
+
+        rule {
+            enabled = true
+            element = 'CLASS'
+            includes = ['co.com.proteccion.todo.*']
+
+            limit {
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                maximum = 100
+            }
+        }
+    }
 }
 
 

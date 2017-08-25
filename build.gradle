@@ -1,7 +1,7 @@
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
-    group = 'com.techandsolve'
+    group = 'co.com.proteccion'
     version = '1.0'
     sourceCompatibility = 1.8
 }
