@@ -2,6 +2,10 @@ server:
   host: localhost
   port: 8443
 
+innerClient:
+  host: localhost
+  port: 8443
+
 security:
   basic:
     enabled: false

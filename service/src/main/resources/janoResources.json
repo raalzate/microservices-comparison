@@ -1,3 +1,7 @@
 [
-    { "app": "appSegura", "resource": "/*", "roles": "*" }
+  {
+    "app": "appSegura",
+    "resource": "/*",
+    "roles": "*"
+  }
 ]

@@ -18,10 +18,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
-import java.util.function.Function;
 
 /**
- * Created by admin on 14/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 14/08/2017.
  */
 
 @RunWith(SpringRunner.class)
@@ -29,15 +28,15 @@ import java.util.function.Function;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TaskControllerTest {
 
-    private WebClient webClient;
-
-    @LocalServerPort
-    private int port;
-
     private static String token;
+
     static {
         token = AccessTokenUtils.getToken();
     }
+
+    private WebClient webClient;
+    @LocalServerPort
+    private int port;
 
     @Before
     public void setup() {

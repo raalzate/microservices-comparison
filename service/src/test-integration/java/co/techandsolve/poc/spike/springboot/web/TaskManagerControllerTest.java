@@ -20,22 +20,22 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 
 /**
- * Created by admin on 14/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 14/08/2017.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:truncate.sql")
 public class TaskManagerControllerTest {
 
-    private WebClient webClient;
-
-    @LocalServerPort
-    private int port;
-
     private static String token;
+
     static {
         token = AccessTokenUtils.getToken();
     }
+
+    private WebClient webClient;
+    @LocalServerPort
+    private int port;
 
     @Before
     public void setup() {

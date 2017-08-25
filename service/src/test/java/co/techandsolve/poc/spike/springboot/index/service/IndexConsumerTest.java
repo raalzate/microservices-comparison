@@ -8,7 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * Created by admin on 24/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 24/08/2017.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class IndexConsumerTest {
@@ -21,7 +21,7 @@ public class IndexConsumerTest {
     private WebClient client;
 
     @Test
-    public void summary(){
+    public void summary() {
 
     }
 }

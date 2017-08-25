@@ -7,12 +7,26 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+
+/**
+ * Esta clase se encarga de realizar el control basico de las tareas.
+ * Depende del repositorio para realizar la persistencia y consulta de la informacion de forma directa, no interactua
+ * con ninguna capa de negocio.
+ *
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 24/08/2017.
+ */
 @RestController
 public class TaskController {
 
 
     private TaskAdapterRepository repository;
 
+    /**
+     * Se inyecta utilizando el constructor para que su dependencia sea fuerte y ademar para apoyar a
+     * sistema de testing
+     *
+     * @param repository
+     */
     @Autowired
     public TaskController(TaskAdapterRepository repository) {
         this.repository = repository;

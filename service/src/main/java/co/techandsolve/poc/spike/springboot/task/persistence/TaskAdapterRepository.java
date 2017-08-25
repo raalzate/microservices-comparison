@@ -1,14 +1,24 @@
 package co.techandsolve.poc.spike.springboot.task.persistence;
 
-import co.techandsolve.poc.spike.springboot.task.domine.Task;
 import co.techandsolve.poc.spike.springboot.common.ReactiveAdapter;
-import co.techandsolve.poc.spike.springboot.task.persistence.TaskRepository;
+import co.techandsolve.poc.spike.springboot.task.domine.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
 /**
- * Created by admin on 22/08/2017.
+ * Esta clase extiende de la clase ReactiveAdapter que pertenece al paquete common, en generar extiende
+ * de un template que permite adaptar los los objectos no reactivos a objectos reactivos.
+ *
+ * Depende de TaskRepository que es el Repo con los objectos No-Reactive, el adaptador padre se encarga de
+ * convertirlos.
+ *
+ * Igualmente esta case es un adaptador y los metodos que no son proporcionados por la clase ReactiveAdapter
+ * se deben transformar a objectos Reactivos.
+ *
+ * Nota: Se debe usar el estereotipo @Repository para indentificar la capa de persistencia
+ *
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 22/08/2017.
  */
 @Repository
 public class TaskAdapterRepository extends ReactiveAdapter<Task> {
@@ -20,10 +30,21 @@ public class TaskAdapterRepository extends ReactiveAdapter<Task> {
         this.repository = repository;
     }
 
+    /**
+     * transformacion de objecto reactivo que obtiene las tareas por tag
+     *
+     * @param tag
+     * @return tasks
+     */
     public Flux<Task> listByTag(String tag) {
         return Flux.fromStream(repository.listByTag(tag).stream());
     }
 
+    /**
+     * transformacion de objecto reactivo que obtiene las tareas realizadas
+     *
+     * @return tasks
+     */
     public Flux<Task> listByStatusDone() {
         return Flux.fromStream(repository.listByDone().stream());
     }

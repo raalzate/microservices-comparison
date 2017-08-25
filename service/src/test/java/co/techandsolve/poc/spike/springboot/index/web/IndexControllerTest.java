@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -21,7 +20,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
- * Created by admin on 16/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 16/08/2017.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners(MockitoTestExecutionListener.class)

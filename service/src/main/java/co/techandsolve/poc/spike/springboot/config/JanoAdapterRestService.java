@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
 /**
- * Created by admin on 23/08/2017.
+ * Clase para adaptar los servicios de Jano para la autenticación por servicio rest
+ *
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 23/08/2017.
  */
 
 @RestController

@@ -1,4 +1,5 @@
-[{
+[
+  {
     "app": "appSegura",
     "url": "/*",
     "method": "GET,POST,PUT,DELETE",
@@ -7,4 +8,5 @@
     "strategy": null,
     "order": 1,
     "requiredValidCartera": "false"
-}]
+  }
+]

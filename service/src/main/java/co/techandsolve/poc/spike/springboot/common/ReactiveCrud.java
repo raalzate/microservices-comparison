@@ -4,7 +4,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Created by admin on 22/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 22/08/2017.
  */
 public interface ReactiveCrud<T> {
     Flux<T> all();

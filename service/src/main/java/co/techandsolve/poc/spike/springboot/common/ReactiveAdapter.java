@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Created by admin on 24/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 24/08/2017.
  */
 
 public abstract class ReactiveAdapter<T> implements ReactiveCrud<T> {

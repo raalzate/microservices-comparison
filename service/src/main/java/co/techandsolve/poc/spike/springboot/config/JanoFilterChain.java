@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by admin on 16/08/2017.
+ * Esta interfaz basicamente se encarga de definir los filtros o las condiciones
+ * para proteger la API
+ *
+ *
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 16/08/2017.
  */
 interface JanoFilterChain {
     static Map<String, String> getDefinitionMap() {

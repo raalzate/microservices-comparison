@@ -7,9 +7,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 /**
- * Created by admin on 22/08/2017.
+ * En esta entidad se hace uso de la libreria lombok.
+ *
+ * Nota: Tener en cuenta el plugin para su IDE dado que el IDE puede arrojar errores de anotacion.
+ *
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 22/08/2017.
  */
 @Entity
 @Table(name = "task")

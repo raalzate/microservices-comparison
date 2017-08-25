@@ -13,7 +13,7 @@ import java.util.Arrays;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by admin on 16/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 16/08/2017.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TaskAdapterRepositoryTest {

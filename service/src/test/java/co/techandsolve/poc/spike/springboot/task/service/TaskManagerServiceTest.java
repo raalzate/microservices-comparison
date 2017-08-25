@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Created by admin on 24/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 24/08/2017.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TaskManagerServiceTest {

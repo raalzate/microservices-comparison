@@ -1,8 +1,7 @@
 package co.techandsolve.poc.spike.springboot.task.web;
 
-import co.techandsolve.poc.spike.springboot.task.service.TaskService;
-import co.techandsolve.poc.spike.springboot.task.web.TaskManagerController;
 import co.techandsolve.poc.spike.springboot.task.domine.Task;
+import co.techandsolve.poc.spike.springboot.task.service.TaskService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +27,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 
 /**
- * Created by admin on 16/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 16/08/2017.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners(MockitoTestExecutionListener.class)

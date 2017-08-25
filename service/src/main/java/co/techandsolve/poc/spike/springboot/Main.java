@@ -15,17 +15,23 @@ import org.springframework.web.reactive.function.client.WebClient;
 @EnableWebFlux
 public class Main {
 
-    @Bean
-    WebClient webClient(@Value("${server.host}") String host, @Value("${server.port}") int port) {
-        return WebClient.builder().clientConnector(new ReactorClientHttpConnector())
-                .baseUrl(String.format("http://%s:%d", host, port)).build();
-    }
-
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Main.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
+    }
+
+    /**
+     * Esta funcion se encarga de injectar el cliente consumindor, se parametriza desde el archivo application.yml
+     * @param host
+     * @param port
+     * @return
+     */
+    @Bean
+    WebClient webClient(@Value("${innerClient.host}") String host, @Value("${innerClient.port}") int port) {
+        return WebClient.builder().clientConnector(new ReactorClientHttpConnector())
+                .baseUrl(String.format("http://%s:%d", host, port)).build();
     }
 
 }
