@@ -94,6 +94,9 @@ public class JanoConfig {
 
         filters.put("restAutnFilter", restAPIAuthenticationFilter);
         filters.put("resAutzFilter", resourceAuthorizationFilter);
+
+        //TODO: El equipo de desarrollo debe relacionar otros filtros de Shiro o de Jano que pueda requerir la aplicacion
+
         return filters;
     }
 
