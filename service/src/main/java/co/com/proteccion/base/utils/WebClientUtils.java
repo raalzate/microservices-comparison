@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import javax.net.ssl.SSLException;
 
 /**
- * Created by admin on 28/08/2017.
+ * Created by Raul A. Alzate <raul.alzate@techandsolve.com> on 28/08/2017.
  */
 public class WebClientUtils {
 
@@ -19,7 +19,7 @@ public class WebClientUtils {
     private WebClientUtils() {
     }
 
-    public static WebClient webClientSSL(String host, int port) {
+    public static WebClient.Builder  webClientSSL(String host, int port) {
 
         return WebClient.builder().clientConnector(new ReactorClientHttpConnector(opt -> {
             try {
@@ -30,13 +30,13 @@ public class WebClientUtils {
             } catch (SSLException e) {
                 logger.error("Existe problemas en realizar el trust manager", e);
             }
-        })).baseUrl(String.format("https://%s:%d", host, port)).build();
+        })).baseUrl(String.format("https://%s:%d", host, port));
 
     }
 
-    public static WebClient webClient(String host, int port) {
+    public static WebClient.Builder  webClient(String host, int port) {
         return WebClient.builder().clientConnector(new ReactorClientHttpConnector())
-                .baseUrl(String.format("http://%s:%d", host, port)).build();
+                .baseUrl(String.format("http://%s:%d", host, port));
 
     }
 }

@@ -35,7 +35,7 @@ public class Main {
      */
     @Bean
     WebClient webClient(@Value("${innerClient.host}") String host, @Value("${innerClient.port}") int port) {
-        return WebClientUtils.webClientSSL(host, port);
+        return WebClientUtils.webClientSSL(host, port).build();
     }
 
 }

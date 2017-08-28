@@ -41,7 +41,9 @@ public class TaskManagerControllerTest {
     @Before
     public void setup() {
 
-        this.webClient = WebClientUtils.webClientSSL("localhost", port);
+        this.webClient = WebClientUtils.webClientSSL("localhost", port)
+                .defaultHeader("Authorization", tokenJWT)
+                .build();
 
         Task task1 = new Task(1L, "IT 1");
         Task task2 = new Task(2L, "IT 2");
@@ -51,7 +53,6 @@ public class TaskManagerControllerTest {
 
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(task1))
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -62,7 +63,6 @@ public class TaskManagerControllerTest {
 
         webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(task2))
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -78,7 +78,6 @@ public class TaskManagerControllerTest {
 
         webClient.get().uri("/tasks/tag/tag1")
                 .accept(MediaType.APPLICATION_JSON)
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMapMany(response ->
                         response.statusCode().value() == 200 ?
@@ -95,7 +94,6 @@ public class TaskManagerControllerTest {
 
         webClient.get().uri("/tasks/done")
                 .accept(MediaType.APPLICATION_JSON)
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMapMany(response ->
                         response.statusCode().value() == 200 ?

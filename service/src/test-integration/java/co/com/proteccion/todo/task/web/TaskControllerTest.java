@@ -32,7 +32,7 @@ import java.util.Arrays;
  */
 
 @RunWith(SpringRunner.class)
-@Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:truncate.sql")
+//@Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:truncate.sql")
 @TestPropertySource("classpath:config.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TaskControllerTest {
@@ -48,11 +48,12 @@ public class TaskControllerTest {
 
     @Before
     public void setup()  {
-        this.webClient = WebClientUtils.webClientSSL("localhost", port);
+        this.webClient = WebClientUtils.webClientSSL("localhost", port)
+                .defaultHeader("Authorization", tokenJWT)
+                .build();
 
-        webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
+        /* webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(1L, "IT 1")))
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -61,15 +62,14 @@ public class TaskControllerTest {
                 ).doOnError(throwable -> Assert.fail()).block();
 
 
-        webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
+       webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(1L, "IT 2")))
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
                                 response.bodyToMono(Task.class) :
                                 Mono.error(new IllegalStateException())
-                ).doOnError(throwable -> Assert.fail()).block();
+                ).doOnError(throwable -> Assert.fail()).block();*/
     }
 
     @Test
@@ -79,7 +79,6 @@ public class TaskControllerTest {
         webClient.post().uri("/task")
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(task))
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -98,7 +97,6 @@ public class TaskControllerTest {
     public void listOfAll() {
         webClient.get().uri("/tasks")
                 .accept(MediaType.APPLICATION_JSON)
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMapMany(response ->
                         response.statusCode().value() == 200 ?
@@ -116,7 +114,6 @@ public class TaskControllerTest {
     public void deleteOne() {
 
         webClient.delete().uri("/task/1").accept(MediaType.APPLICATION_JSON)
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ? Mono.empty() :
@@ -131,7 +128,6 @@ public class TaskControllerTest {
 
         webClient.put().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(1L, "IT 2")))
-                .header("Authorization", tokenJWT)
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -140,6 +136,7 @@ public class TaskControllerTest {
                 )
                 .flatMap(thing -> {
                     Assert.assertEquals("IT 2", thing.getName());
+                    Assert.assertEquals(1L, thing.getId().longValue());
                     return Mono.empty();
                 })
                 .doOnError(throwable -> Assert.fail(throwable.getMessage()))

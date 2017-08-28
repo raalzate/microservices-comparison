@@ -12,12 +12,12 @@ import java.text.MessageFormat;
 
 /**
  * Esta clase es la encargada de realizar el consumo debido de un servicio web
- *
+ * <p>
  * Su dependencia directa es un cliente web para realizar el consumo del servicio,
  * la clase WebClient es inyectada desde la clase Main y es parametrizada por el archivo application.yml
- *
+ * <p>
  * Nota: Se debe usar el estereotipo @Service para indentificar la capa de servicio o negocio.
- *
+ * <p>
  * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 24/08/2017.
  */
 @Service

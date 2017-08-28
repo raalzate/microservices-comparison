@@ -22,8 +22,8 @@ public abstract class ReactiveAdapter<T> implements ReactiveCrud<T> {
     }
 
     @Override
-    public Mono<T> byId(long thingId) {
-        return Mono.just(repository.getOne(thingId));
+    public Mono<T> byId(long id) {
+        return Mono.just(repository.getOne(id));
     }
 
     @Override
