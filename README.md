@@ -1,13 +1,18 @@
-# Seed - Protección Microservicio
+# Arquitectura de Referencia de Protección S.A. Para construcción de Microservicios
 
+Este repositorio es una plantilla para desarrollar aplicaciones estilo microservicios basado
+en una una arquitectura basada en el manifiesto Reactivo y con preferencia hacia las aplicaciones 
+autocontenidas. 
 
-El siguiente proyecto consiste en desarrollar una arquitectura de referencia que integre el sistema de seguridad de protección y con la arquitectura estudiada para las aplicación de Protección. La arquitectura debe cumplir con el manifiesto Reactivo y con el diseño de aplicaciones autocontenidas para una arquitectura por microservicios. 
+Puede ver la presentación de la Arquitectura de Referencia de Protección 2017 [Aquí](https://proteccion.sharepoint.com/sites/ArquitecturaEmpresarial/ADT/_layouts/15/guestaccess.aspx?docid=0bc183d75596a47629e98d4db1bc118ae&authkey=Ac4_k5J1lcAhS0cp70KpywQ).
 
-### Dependencias:
+## Dependencias:
 
-  - Jano-security
-  - Spring Boot
-  - Flywaydb
+La arquitectura como código, representada por este repositorio esta basado en los siguientes componentes:
+
+  - Proyecto de Autorización de servicios web con **Jano-security**
+  - Spring Boot para la creación de microservicios
+  - Spring Reactor para la materialización del manifiesto Reactivo
  
 ### Comandos para Gradle:
   - **bootRun**: Corre la aplicación.
