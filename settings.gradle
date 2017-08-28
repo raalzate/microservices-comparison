@@ -1,2 +1,2 @@
-rootProject.name = 'Reactive-Template-Proteccion'
+rootProject.name = 'arq_referencia_proteccion'
 include 'service'
