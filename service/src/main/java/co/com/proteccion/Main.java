@@ -1,5 +1,8 @@
 package co.com.proteccion;
 
+import co.com.proteccion.base.utils.WebClientUtils;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import javax.net.ssl.SSLException;
 
 @SpringBootApplication
 @EnableAutoConfiguration
@@ -30,8 +35,7 @@ public class Main {
      */
     @Bean
     WebClient webClient(@Value("${innerClient.host}") String host, @Value("${innerClient.port}") int port) {
-        return WebClient.builder().clientConnector(new ReactorClientHttpConnector())
-                .baseUrl(String.format("https://%s:%d", host, port)).build();
+        return WebClientUtils.webClientSSL(host, port);
     }
 
 }
