@@ -1,5 +1,6 @@
 package co.com.proteccion.todo.task.web;
 
+import co.com.proteccion.base.utils.WebClientUtils;
 import co.com.proteccion.todo.task.domain.Tag;
 import co.com.proteccion.todo.task.domain.Task;
 import org.junit.Assert;
@@ -40,7 +41,7 @@ public class TaskManagerControllerTest {
     @Before
     public void setup() {
 
-        this.webClient = WebClient.create("https://localhost:" + this.port);
+        this.webClient = WebClientUtils.webClientSSL("localhost", port);
 
         Task task1 = new Task(1L, "IT 1");
         Task task2 = new Task(2L, "IT 2");
