@@ -19,7 +19,7 @@ public class WebClientUtils {
     private WebClientUtils() {
     }
 
-    public static WebClient.Builder  webClientSSL(String host, int port) {
+    public static WebClient.Builder webClientSSL(String host, int port) {
 
         return WebClient.builder().clientConnector(new ReactorClientHttpConnector(opt -> {
             try {
@@ -34,7 +34,7 @@ public class WebClientUtils {
 
     }
 
-    public static WebClient.Builder  webClient(String host, int port) {
+    public static WebClient.Builder webClient(String host, int port) {
         return WebClient.builder().clientConnector(new ReactorClientHttpConnector())
                 .baseUrl(String.format("http://%s:%d", host, port));
 

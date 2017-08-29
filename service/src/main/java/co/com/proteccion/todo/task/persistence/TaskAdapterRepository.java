@@ -9,15 +9,15 @@ import reactor.core.publisher.Flux;
 /**
  * Esta clase extiende de la clase ReactiveAdapter que pertenece al paquete common, en generar extiende
  * de un template que permite adaptar los los objectos no reactivos a objectos reactivos.
- *
+ * <p>
  * Depende de TaskRepository que es el Repo con los objectos No-Reactive, el adaptador padre se encarga de
  * convertirlos.
- *
+ * <p>
  * Igualmente esta case es un adaptador y los metodos que no son proporcionados por la clase ReactiveAdapter
  * se deben transformar a objectos Reactivos.
- *
+ * <p>
  * Nota: Se debe usar el estereotipo @Repository para indentificar la capa de persistencia
- *
+ * <p>
  * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 22/08/2017.
  */
 @Repository

@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Esta interfaz extiende de la interfaz JpaRepository en la cual extiende basicamente del
  * comportamiento general de un CRUD.
- *
+ * <p>
  * Igualmente implementa consultas personalizadas.
- *
+ * <p>
  * Recordar que las consultas se debe hacer con respecto a la sintaxis JPQL.
- *
+ * <p>
  * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 22/08/2017.
  */
 public interface TaskRepository extends JpaRepository<Task, Long> {

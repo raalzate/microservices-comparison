@@ -3,9 +3,6 @@ package co.com.proteccion.todo.task.web;
 import co.com.proteccion.base.utils.WebClientUtils;
 import co.com.proteccion.todo.task.domain.Tag;
 import co.com.proteccion.todo.task.domain.Task;
-import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
-import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.reactive.ClientHttpConnector;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,7 +19,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.net.ssl.SSLException;
 import java.util.Arrays;
 
 /**
@@ -47,12 +41,12 @@ public class TaskControllerTest {
 
 
     @Before
-    public void setup()  {
+    public void setup() {
         this.webClient = WebClientUtils.webClientSSL("localhost", port)
                 .defaultHeader("Authorization", tokenJWT)
                 .build();
 
-       webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
+        webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(null, "IT 1")))
                 .exchange()
                 .flatMap(response ->
@@ -62,7 +56,7 @@ public class TaskControllerTest {
                 ).doOnError(throwable -> Assert.fail()).block();
 
 
-       webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
+        webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(new Task(null, "IT 2")))
                 .exchange()
                 .flatMap(response ->

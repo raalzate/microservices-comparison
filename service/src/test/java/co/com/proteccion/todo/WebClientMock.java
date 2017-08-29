@@ -18,12 +18,12 @@ public class WebClientMock {
     private String uri;
     private WebClient.RequestHeadersUriSpec requestHeadersUriSpec;
 
-    private WebClientMock(WebClient.RequestHeadersUriSpec requestHeadersUriSpec, String uri){
+    private WebClientMock(WebClient.RequestHeadersUriSpec requestHeadersUriSpec, String uri) {
         this.uri = uri;
         this.requestHeadersUriSpec = requestHeadersUriSpec;
     }
 
-    public  void getForFlux(Class entity, Flux flux, HttpStatus status) {
+    public void getForFlux(Class entity, Flux flux, HttpStatus status) {
         when(requestHeadersUriSpec).then(invocation -> {
             WebClient.RequestHeadersUriSpec rq = Mockito.mock(WebClient.RequestHeadersUriSpec.class);
             ClientResponse cr = Mockito.mock(ClientResponse.class);
@@ -39,17 +39,18 @@ public class WebClientMock {
         });
     }
 
-    public void getOKForFlux(Class entity, Flux flux){
+    public void getOKForFlux(Class entity, Flux flux) {
         getForFlux(entity, flux, HttpStatus.OK);
     }
 
     public static class When {
         private WebClientMock webClientMock;
-        public When(WebClient.RequestHeadersUriSpec requestHeadersUriSpec, String uri){
+
+        public When(WebClient.RequestHeadersUriSpec requestHeadersUriSpec, String uri) {
             webClientMock = new WebClientMock(requestHeadersUriSpec, uri);
         }
 
-        public <T> When thenReturnFor(Class<T> entity, Flux<T> flux){
+        public <T> When thenReturnFor(Class<T> entity, Flux<T> flux) {
             webClientMock.getOKForFlux(entity, flux);
             return this;
         }

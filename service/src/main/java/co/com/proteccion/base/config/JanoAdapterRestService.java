@@ -11,15 +11,14 @@ import javax.ws.rs.core.Response;
 
 /**
  * Clase para adaptar los servicios de Jano para la autenticación por servicio rest.
- *
+ * <p>
  * Por el momento aplica si la aplicacion va a autenticar contra Tivoli Directory Services.
- *
+ * <p>
  * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 23/08/2017.
  */
 
 @RestController
 public class JanoAdapterRestService extends AuthResource {
-
 
 
     @Autowired

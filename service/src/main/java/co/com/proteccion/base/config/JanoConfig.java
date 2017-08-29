@@ -24,11 +24,11 @@ import java.util.Optional;
 
 /**
  * Esta clase sustituye al archivo Shiro.ini.
- *
+ * <p>
  * Es la encargada de realizar la configuracion de los Beans de Shiro.
- *
+ * <p>
  * Configura los Beands, Realms y Filtros
- *
+ * <p>
  * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 14/08/2017.
  */
 @Configuration

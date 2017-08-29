@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 /**
  * En esta entidad se hace uso de la libreria lombok.
- *
+ * <p>
  * Nota: Tener en cuenta el plugin para su IDE dado que el IDE puede arrojar errores de anotacion.
- *
+ * <p>
  * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 22/08/2017.
  */
 @Entity

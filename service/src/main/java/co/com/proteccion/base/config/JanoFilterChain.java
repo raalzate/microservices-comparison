@@ -6,8 +6,8 @@ import java.util.Map;
 /**
  * Esta interfaz basicamente se encarga de definir los filtros o las condiciones
  * para proteger la API
- *
- *
+ * <p>
+ * <p>
  * Created by Raul A. Alzate <raul.alzate@techandsolve.com>  on 16/08/2017.
  */
 interface JanoFilterChain {
