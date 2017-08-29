@@ -32,7 +32,7 @@ import java.util.Arrays;
  */
 
 @RunWith(SpringRunner.class)
-//@Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:truncate.sql")
+@Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:truncate.sql")
 @TestPropertySource("classpath:config.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TaskControllerTest {
@@ -52,8 +52,8 @@ public class TaskControllerTest {
                 .defaultHeader("Authorization", tokenJWT)
                 .build();
 
-        /* webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Task(1L, "IT 1")))
+       webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromObject(new Task(null, "IT 1")))
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
@@ -63,13 +63,13 @@ public class TaskControllerTest {
 
 
        webClient.post().uri("/task").accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(new Task(1L, "IT 2")))
+                .body(BodyInserters.fromObject(new Task(null, "IT 2")))
                 .exchange()
                 .flatMap(response ->
                         response.statusCode().value() == 200 ?
                                 response.bodyToMono(Task.class) :
                                 Mono.error(new IllegalStateException())
-                ).doOnError(throwable -> Assert.fail()).block();*/
+                ).doOnError(throwable -> Assert.fail()).block();
     }
 
     @Test

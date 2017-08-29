@@ -19,14 +19,13 @@ management:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost/todo
-    username: root
-    password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:sqlserver://vnttpmde62.proteccion.local;databaseName=arq_ref_demodb
+    username: JANCXN2
+    password: Proteccion2017.*
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
 securedApplication:
   name: appSegura
   clientId: 69f46a95-55ce-412d-8cfc-8c8b0ef18dbc
   tenant: f47dcce4-02e7-4d88-a659-a2d0bbe170e7
   clientSecret: 1BOGY9Y1UuUuLGUdVH9Eti+3QQCRrKUUHlJAFvcR7IQ=
-
